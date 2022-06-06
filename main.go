@@ -1,17 +1,23 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"net/http"
+	"log"
+	app "pundixtest/app"
+	"pundixtest/config"
+	"pundixtest/controller"
 )
 
-func homepage(c *gin.Context) {
-	c.JSON(http.StatusOK, "Hello World!")
-}
-
 func main() {
-	router := gin.Default()
-	router.GET("/", homepage)
-	router.Run("localhost:3000")
+
+	appConfig, err := config.LoadAppConfig("config.json")
+	if err != nil {
+		log.Println("App cannot be initialized")
+	}
+
+	controller := new(controller.Controller)
+
+	app := app.New()
+	app.Init(appConfig, controller)
+	app.Start()
 }
 
