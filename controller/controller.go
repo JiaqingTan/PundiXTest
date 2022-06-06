@@ -48,6 +48,7 @@ func (controller *Controller) ExecuteCommand(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, "Failed to connect to create SSH session")
 		return
 	}
+	defer session.Close()
 
 	cmd := fmt.Sprintf(controller.fxcoredCommand, command1, command2, command3)
 	output, err := session.CombinedOutput(cmd)
