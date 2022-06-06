@@ -7,8 +7,8 @@ import (
 )
 
 type App struct {
-	config *config.AppConfig
-	router router.Router
+	config     *config.AppConfig
+	router     router.Router
 }
 
 func New() *App {
@@ -17,6 +17,7 @@ func New() *App {
 
 func (app *App) Init(appConfig *config.AppConfig, controller *controller.Controller) {
 	app.config = appConfig
+
 	app.router.Init()
 	app.router.ServeRoutes(appConfig, controller)
 }

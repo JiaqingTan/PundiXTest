@@ -15,6 +15,11 @@ func main() {
 	}
 
 	controller := new(controller.Controller)
+	controller.Init(appConfig)
+	if err != nil {
+		log.Println("App cannot be initialized")
+		return
+	}
 
 	app := app.New()
 	app.Init(appConfig, controller)
