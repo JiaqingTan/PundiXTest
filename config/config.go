@@ -7,7 +7,8 @@ import (
 )
 
 type AppConfig struct {
-	Port int `json:"port"`
+	Port            int                 `json:"port"`
+	AllowedCommands map[string][]string `json:"allowed_commands"`
 }
 
 func LoadAppConfig(filePath string) (*AppConfig, error) {
