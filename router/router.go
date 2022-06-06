@@ -3,6 +3,7 @@ package router
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"pundixtest/constant"
 	"pundixtest/controller"
 )
 
@@ -16,7 +17,7 @@ func (router *Router) Init() {
 }
 
 func (router *Router) ServeRoutes(controller *controller.Controller) {
-	router.engine.GET("/", controller.HomePage)
+	router.engine.GET(fmt.Sprintf("/:%s/:%s/:%s", constant.Command1, constant.Command2, constant.Command3), controller.ExecuteCommand)
 }
 
 // Run on localhost by default
