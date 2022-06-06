@@ -20,8 +20,6 @@ func (router *Router) Init() {
 func (router *Router) ServeRoutes(appConfig *config.AppConfig, controller *controller.Controller) {
 	router.engine.GET(fmt.Sprintf("/:%s/:%s/:%s", constant.Command1, constant.Command2, constant.Command3),
 		controller.ValidateExecuteCommandParams(appConfig), controller.ExecuteCommand)
-
-	router.engine.NoRoute(controller.NotFound)
 }
 
 // Run on localhost by default

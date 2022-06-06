@@ -65,7 +65,7 @@ func (controller *Controller) ValidateExecuteCommandParams(appConfig *config.App
 
 		if !util.SliceContains(appConfig.AllowedCommands[constant.Command1], command1Param) ||
 			!util.SliceContains(appConfig.AllowedCommands[constant.Command2], command2Param) {
-			controller.NotFound(ctx)
+			controller.BadRequest(ctx)
 			ctx.Abort()
 			return
 		}
@@ -74,6 +74,6 @@ func (controller *Controller) ValidateExecuteCommandParams(appConfig *config.App
 	}
 }
 
-func (controller *Controller) NotFound(ctx *gin.Context) {
-	ctx.JSON(404, "404 Not Found")
+func (controller *Controller) BadRequest(ctx *gin.Context) {
+	ctx.JSON(400, "400 Bad Request")
 }
