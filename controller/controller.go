@@ -13,24 +13,19 @@ import (
 )
 
 type Controller struct {
-	sshClient *ssh.Client
+	sshClient      *ssh.Client
+	fxcoredCommand string
 }
 
 func (controller *Controller) Init(appConfig *config.AppConfig) error {
-	sshHost := "13.212.254.102"
-	sshPort := 22
-	sshUser := "root"
-	sshPassword := "5uJr_H{F"
-
 	config := &ssh.ClientConfig {
 		Timeout:         time.Second,
-		User:            sshUser,
+		User:            appConfig.SSHUser,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
-	config.Auth = []ssh.AuthMethod{ssh.Password(sshPassword)}
+	config.Auth = []ssh.AuthMethod{ssh.Password(appConfig.SSHPassword)}
 
-	// dial get SSH client
-	addr := fmt.Sprintf("%s:%d", sshHost, sshPort)
+	addr := fmt.Sprintf("%s:%d", appConfig.SSHHost, appConfig.SSHPort)
 	sshClient, err := ssh.Dial("tcp", addr, config)
 	if err != nil {
 		log.Printf("Failed to dial remote EC2 instance via TCP")
@@ -38,6 +33,7 @@ func (controller *Controller) Init(appConfig *config.AppConfig) error {
 	}
 
 	controller.sshClient = sshClient
+	controller.fxcoredCommand = appConfig.FXCoredCommand
 
 	return nil
 }
@@ -53,7 +49,7 @@ func (controller *Controller) ExecuteCommand(ctx *gin.Context) {
 		return
 	}
 
-	cmd := fmt.Sprintf("go/bin/fxcored %s %s %s --node https://fx-json.functionx.io:26657", command1, command2, command3)
+	cmd := fmt.Sprintf(controller.fxcoredCommand, command1, command2, command3)
 	output, err := session.CombinedOutput(cmd)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, "Failed to execute fxcored command")
