@@ -16,7 +16,6 @@ import (
 
 type Controller struct {
 	sshClient      *ssh.Client
-	fxcoredCommand string
 }
 
 func (controller *Controller) Init(appConfig *config.AppConfig) error {
@@ -35,7 +34,6 @@ func (controller *Controller) Init(appConfig *config.AppConfig) error {
 	}
 
 	controller.sshClient = sshClient
-	controller.fxcoredCommand = appConfig.FXCoredCommand
 
 	return nil
 }
