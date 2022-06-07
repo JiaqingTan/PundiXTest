@@ -1,7 +1,10 @@
 Pundi X Test Submission
 -
 
-
+Install and run:
+- go get
+- go build
+- ./pundixtest
 
 Usage:
 - query/bank:
