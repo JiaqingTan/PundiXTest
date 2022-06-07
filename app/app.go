@@ -19,7 +19,7 @@ func (app *App) Init(appConfig *config.AppConfig, controller *controller.Control
 	app.config = appConfig
 
 	app.router.Init()
-	app.router.ServeRoutes(appConfig, controller)
+	app.router.ServeRoutes(controller)
 }
 
 func (app *App) Start() {

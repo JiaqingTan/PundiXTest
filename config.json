@@ -1,12 +1,7 @@
 {
   "port": 3000,
-  "allowed_commands": {
-    "command1": ["query"],
-    "command2": ["bank", "distribution"]
-  },
   "ssh_host": "13.212.254.102",
   "ssh_port": 22,
   "ssh_user": "root",
-  "ssh_password": "5uJr_H{F",
-  "fxcored_command": "go/bin/fxcored %s %s %s --node https://fx-json.functionx.io:26657"
+  "ssh_password": "5uJr_H{F"
 }
